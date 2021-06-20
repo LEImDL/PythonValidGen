@@ -12,7 +12,9 @@ A fantastic Python tool to parse and automate the generation of validation funct
 ## Execution example
 
 ```python
-test_gen('../JSON_Files/mDL_specification_prototype.json', '../JSON_Files/standard_format_prototype.json', 'validator_example.py')
+from PythonValidGen.DataRepresentation.Document import Document
+from PythonValidGen.Verifier.Verifier import Verifier
+from PythonValidGen.Generator.Generator import Generator
     
 def test_gen(specification_path, schema_path, target_path):
     document = Document(file=specification_path, extension="JSON")
@@ -27,4 +29,6 @@ def test_gen(specification_path, schema_path, target_path):
     generator.main()
 
     print("File generated")
+    
+test_gen('JSON_Files/mDL_specification_prototype.json', 'JSON_Files/standard_format_prototype.json', 'validator_example.py')
 ```
