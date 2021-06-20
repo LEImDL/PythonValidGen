@@ -1,0 +1,50 @@
+    for field in jsondata['document']:
+        try:
+            key = field['name']
+            value = field['value']
+
+            if key in mandatories:
+                mandatories.remove(key)
+            else:
+                optionals.remove(key)
+        except (ValueError, KeyError):
+            return False
+
+        try:
+            function_dict[key](value)
+        except ExceptionValidation as e:
+            print(e.code, "->", e.message)
+            return False
+
+    return len(mandatories) == 0
+
+
+if __name__ == '__main__':
+    argv = sys.argv
+    argc = len(argv)
+
+    if argc < 2:
+        example_doc = "../JSON_Files/mDL_example_document.json"
+    else:
+        example_doc = argv[1]
+    if argc < 3:
+        schema_doc = "../JSON_Files/schema_document.json"
+    else:
+        schema_doc = argv[2]
+
+    # json_file = input("Insira o ficheiro com documento em JSON: ")
+    document = Document(example_doc)
+    document_data = document.content
+
+    schema_document = Document(schema_doc)
+    schema_data = schema_document.content
+
+    v = Verifier(schema_data)
+    v.verify(document_data)
+
+    if validate_json_file(document_data):
+        print("Documento Válido")
+        exit(0)
+    else:
+        print("Documento Inválido")
+        exit(-1)

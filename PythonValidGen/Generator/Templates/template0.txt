@@ -1,0 +1,9 @@
+import sys
+from PythonValidGen.Validator.Exceptions import ExceptionValidation
+from PythonValidGen.Validator.ValidationFunctions import check_format_string, check_format_number, check_format_boolean, check_format_date
+from PythonValidGen.Verifier.Verifier import Verifier
+from PythonValidGen.DataRepresentation.Document import Document
+
+
+def validate_json_file(jsondata):
+
