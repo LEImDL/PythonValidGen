@@ -17,7 +17,7 @@ setup(
           os.path.join('PythonValidGen', 'Generator', 'Templates', 'template1.txt')]),
     ],
     license='LICENSE',
-    url="https://github.com/Haandree733/LEI",
+    url="https://github.com/LEImDL/PythonValidGen",
     description='Generator capable of verifying the structure of a document and generate a Python program that can process an exemplar',
     long_description=open('README.md').read(),
     install_requires=[
