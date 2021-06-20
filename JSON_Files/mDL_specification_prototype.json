@@ -1,0 +1,257 @@
+{
+   "document":[
+      {
+         "name":"Family Name",
+         "string":{
+            "is_binary":false,
+            "encoding": "utf-8",
+            "max_length": 150,
+            "restrictions": ["punctuation", "digits"]
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Given Name",
+         "string":{
+            "is_binary":false,
+            "encoding": "utf-8",
+            "max_length": 150,
+            "restrictions": ["punctuation", "digits"]
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Date of Birth",
+         "date":{
+            "is_full_date":false,
+            "years_or_more": 16
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Date of Issue",
+         "date":{
+            "is_full_date":false,
+            "past_date":true
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Date of Expiry",
+         "date":{
+            "is_full_date":false,
+            "future_date": true
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Issuing Country",
+         "string":{
+            "is_binary":false,
+            "length": 2
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Issuing Authority",
+         "string":{
+            "is_binary":false,
+            "encoding": "utf-8",
+            "max_length": 150
+         },
+         "mandatory":true
+      },
+      {
+         "name":"License Number",
+         "string":{
+            "is_binary":false,
+            "encoding": "utf-8",
+            "max_length": 150
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Portrait",
+         "string":{
+            "is_binary":true
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Categories of Vehicles",
+         "string":{
+            "is_binary":false,
+            "is_multiple_values": true,
+            "enums": ["AM", "A1", "A2", "A", "B1", "B", "BE", "C1", "C1E", "C", "CE", "D1", "D1E", "D", "DE"]
+         },
+         "mandatory":true
+      },
+      {
+         "name":"UN distinguishing sign",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Administrative number",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":true
+      },
+      {
+         "name":"Sex",
+         "number":{
+            "is_int":true,
+            "lower_bound":0,
+            "upper_bound":2
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Height",
+         "number":{
+            "is_int":false,
+            "lower_bound":0
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Weight",
+         "number":{
+            "is_int":false,
+            "lower_bound":0
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Eye Colour",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Hair Colour",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Place of Birth",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Permanent place of residence",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Portrait image timestamp",
+         "date":{
+            "is_full_date":true
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Age",
+         "number":{
+            "is_int":true,
+            "lower_bound":0
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Year of birth",
+         "number":{
+            "is_int":true,
+            "lower_bound":1900
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Age Attestation",
+         "boolean":{
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Issuing Jurisdiction",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Nationality",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Resident City",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Resident State",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Resident Postal Code",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Resident Country",
+         "string":{
+            "is_binary":false,
+            "length":2
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Biometric template",
+         "string":{
+            "is_binary":true
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Family Name in National Chars",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Given Name in National Chars",
+         "string":{
+            "is_binary":false
+         },
+         "mandatory":false
+      },
+      {
+         "name":"Signature",
+         "string":{
+            "is_binary":true
+         },
+         "mandatory":false
+      }
+   ]
+}
