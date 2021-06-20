@@ -19,6 +19,7 @@ setup(
     license='LICENSE',
     url="https://github.com/LEImDL/PythonValidGen",
     description='Generator capable of verifying the structure of a document and generate a Python program that can process an exemplar',
+    long_description_content_type='text/markdown',
     long_description=open('README.md').read(),
     install_requires=[
         "jsonschema",
