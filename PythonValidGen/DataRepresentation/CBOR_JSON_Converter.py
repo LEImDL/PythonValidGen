@@ -69,7 +69,7 @@ __curve_sizes = {
 }
 
 
-def __load_key_from_file(public_path=None, private_path=None, password=None):
+def load_key_from_file(public_path=None, private_path=None, password=None):
     pk, sk = None, None
 
     if public_path is not None:
