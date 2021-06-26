@@ -21,10 +21,10 @@
 
 def main(example_doc, schema_doc):
     # json_file = input("Insira o ficheiro com documento em JSON: ")
-    document = Document(example_doc)
+    document = Document(file=example_doc)
     document_data = document.content
 
-    schema_document = Document(schema_doc)
+    schema_document = Document(file=schema_doc)
     schema_data = schema_document.content
 
     v = Verifier(schema_data)
@@ -37,21 +37,23 @@ def main(example_doc, schema_doc):
         print("Documento Inválido")
         return False
 
+
 if __name__ == '__main__':
     argv = sys.argv
     argc = len(argv)
 
     if argc < 2:
-        example_doc = "../JSON_Files/mDL_example_document.json"
+        example_doc_path = "./JSON_Files/mDL_example_document.json"
     else:
-        example_doc = argv[1]
+        example_doc_path = argv[1]
     if argc < 3:
-        schema_doc = "../JSON_Files/schema_document.json"
+        schema_doc_path = "./JSON_Files/schema_document.json"
     else:
-        schema_doc = argv[2]
+        schema_doc_path = argv[2]
 
     try:
-        if main(example_doc, schema_doc):
+        if main(example_doc_path, schema_doc_path):
             exit(0)
-    except:
+    except Exception as e:
+        print(e)
         exit(-1)
