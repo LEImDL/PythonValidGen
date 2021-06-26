@@ -35,6 +35,13 @@ def json2cbor(json_obj):
     """
     Converts a `json object` into a `cbor object`.
 
+    Examples
+    --------
+    Encoding a dict into CBOR, and decoding the previous result, resulting in equal objects
+    enc = json2cbor({'1': 2})
+    dec = cbor2json(enc)
+    enc == dec # True
+
     Parameters
     ----------
     json_obj
@@ -70,6 +77,22 @@ __curve_sizes = {
 
 
 def load_key_from_file(public_path=None, private_path=None, password=None):
+    """
+    Loads a EC (PEM), RSA (PEM), or OKP (SSH) key into CoseKey
+
+    Parameters
+    ----------
+    public_path
+        Path to public key's file
+    private_path
+        Path to private key's file
+    password
+        Passphrase used to encrypt/decrypt key file
+
+    Returns
+    -------
+    CoseKey Object, exactly RSAPublicKey, RSAPrivateKey, RSAPublicNumbers, RSAPrivateNumbers, OKPKey
+    """
     pk, sk = None, None
 
     if public_path is not None:
@@ -149,6 +172,16 @@ def load_key_from_file(public_path=None, private_path=None, password=None):
 def load_key(key):
     """
     Loads a cose key given another key.
+
+    Examples
+    --------
+    Loading a public key in "key.key" file
+        key = load_ssh_public_key(open("key.key", "rb").read())
+        cosekey = load_key(key)
+
+    Loading a private key in "key.key" file
+        key = load_ssh_public_key(open("key.key", "rb").read(), password=password)
+        cosekey = load_key(key)
 
     Parameters
     ----------

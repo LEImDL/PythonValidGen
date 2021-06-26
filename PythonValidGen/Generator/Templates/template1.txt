@@ -19,6 +19,24 @@
     return len(mandatories) == 0
 
 
+def main(example_doc, schema_doc):
+    # json_file = input("Insira o ficheiro com documento em JSON: ")
+    document = Document(example_doc)
+    document_data = document.content
+
+    schema_document = Document(schema_doc)
+    schema_data = schema_document.content
+
+    v = Verifier(schema_data)
+    v.verify(document_data)
+
+    if validate_json_file(document_data):
+        print("Documento Válido")
+        return True
+    else:
+        print("Documento Inválido")
+        return False
+
 if __name__ == '__main__':
     argv = sys.argv
     argc = len(argv)
@@ -32,19 +50,8 @@ if __name__ == '__main__':
     else:
         schema_doc = argv[2]
 
-    # json_file = input("Insira o ficheiro com documento em JSON: ")
-    document = Document(example_doc)
-    document_data = document.content
-
-    schema_document = Document(schema_doc)
-    schema_data = schema_document.content
-
-    v = Verifier(schema_data)
-    v.verify(document_data)
-
-    if validate_json_file(document_data):
-        print("Documento Válido")
-        exit(0)
-    else:
-        print("Documento Inválido")
+    try:
+        if main(example_doc, schema_doc):
+            exit(0)
+    except:
         exit(-1)

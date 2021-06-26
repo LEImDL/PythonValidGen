@@ -9,6 +9,24 @@ class Generator:
     """
     A class used to load a `specification` and create a Python file for validating documents.
 
+    Examples
+    -------
+    Generating a python file to validate documents that follows structure defined in `specification_path`'s file, and checking if struture is valid
+        specification_path = '../../JSON_Files/mDL_specification_prototype.json'
+        schema_path = '../../JSON_Files/standard_format_prototype.json'
+
+        document = Document(file=specification_path, extension="JSON")
+        specification = document.content
+
+        schema = Document(file=schema_path, extension="JSON")
+        verifier = Verifier(schema.content)
+
+        verifier.verify(specification)
+        generator = Generator(specification, target_path)
+        generator.main()
+
+        print("File generated")
+
     Methods
     -------
     main()

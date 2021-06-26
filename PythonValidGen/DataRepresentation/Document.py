@@ -12,6 +12,28 @@ class Document:
     """
     A class used to represent and process a document.
 
+    Examples
+    -------
+    Loading a file JSON file
+        specification_path = '../../JSON_Files/mDL_specification_prototype.json'
+
+        document = Document(file=specification_path, extension="JSON")
+        specification = document.content
+
+    Loading a dict object
+        s = {"document": [{"name": "Family Name", "string": {"is_binary": false, "encoding": "utf-8", "max_length": 150, "restrictions": ["punctuation", "digits"]}, "mandatory": true}]}
+        document = Document(content=s)
+        print(document.content)
+
+    Encryption using COSE and comparing the result of the decryption with the original content
+        key = load_ssh_public_key(open("key.key", "rb").read())
+        cosekey = load_key(key)
+
+        enc = document.enc({'ALG': 'A128GCM', 'IV': b'000102030405060708090a0b0c'}, {}, cosekey)
+        dec = decoded_cose(enc)
+
+        dec == document.content
+
     Methods
     -------
     to_cbor()
