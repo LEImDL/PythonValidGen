@@ -3,7 +3,7 @@ import os
 
 setup(
     name='PythonValidGen',
-    version='1.3',
+    version='1.4.0',
     author='Ana Almeida, André Figueiredo, Luís Ferreira',
     packages=find_packages(),
     package_data={
