@@ -55,3 +55,31 @@ class Verifier:
             jsonschema.validate(instance=specification, schema=self.__schema)
         except Exception as e:
             raise e
+
+            
+if __name__ == '__main__':
+    from PythonValidGen.DataRepresentation.Document import Document
+
+    import sys
+    import os
+
+    argv = sys.argv
+    argc = len(argv)
+
+    json_paths = os.path.join(os.path.dirname(__file__), "..", "..", "JSON_Files")
+
+    if argc < 2:
+        specification_path = os.path.join(json_paths, 'mDL_specification_prototype.json')
+    else:
+        specification_path = argv[1]
+
+    if argc < 3:
+        schema_path = os.path.join(json_paths, 'standard_format_prototype.json')
+    else:
+        schema_path = argv[2]
+
+    document = Document(file=specification_path, extension="JSON")
+    specification = document.content
+
+    schema = Document(file=schema_path, extension='JSON')
+    verifier = Verifier(schema.content)
