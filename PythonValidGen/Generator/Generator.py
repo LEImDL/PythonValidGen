@@ -143,3 +143,42 @@ class Generator:
         self.__generate_main_python_code()
 
         self.__finalize_file()
+
+        
+if __name__ == '__main__':
+    from PythonValidGen.DataRepresentation.Document import Document
+    from PythonValidGen.Verifier.Verifier import Verifier
+    import sys
+    import os
+
+    argv = sys.argv
+    argc = len(argv)
+
+    json_paths = os.path.join(dir_path, "..", "..", "JSON_Files")
+
+    if argc < 2:
+        specification_path = os.path.join(json_paths, 'mDL_specification_prototype.json')
+    else:
+        specification_path = argv[1]
+
+    if argc < 3:
+        schema_path = os.path.join(json_paths, 'standard_format_prototype.json')
+    else:
+        schema_path = argv[2]
+
+    if argc < 4:
+        target_path = './validator_example.py'
+    else:
+        target_path = argv[3]
+
+    document = Document(file=specification_path, extension="JSON")
+    specification = document.content
+
+    schema = Document(file=schema_path, extension="JSON")
+    verifier = Verifier(schema.content)
+
+    verifier.verify(specification)
+    generator = Generator(specification, target_path)
+    generator.main()
+
+    print("File generated")
