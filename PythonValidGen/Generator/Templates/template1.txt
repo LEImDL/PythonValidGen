@@ -1,19 +1,31 @@
-    for field in jsondata['document']:
-        try:
-            key = field['name']
-            value = field['value']
+    document, op_cont = get_document(jsondata)
 
-            if key in mandatories:
-                mandatories.remove(key)
+    for field in document:
+        try:
+            key, value = get_field(field, op_cont)
+
+            opt = False
+            if field in mandatories:
+                mandatories.remove(field)
             else:
-                optionals.remove(key)
-        except (ValueError, KeyError):
-            return False
+                optionals.remove(field)
+                opt = True
 
-        try:
-            function_dict[key](value)
-        except ExceptionValidation as e:
-            print(e.code, "->", e.message)
+            try:
+                if len(key) == 1:
+                    value1 = value[field]
+                else:
+                    value1 = value
+
+                if opt and value1 is None:
+                    continue
+
+                function_dict[field](value1)
+            except ExceptionValidation as exc:
+                print(exc.code, "->", exc.message)
+                return False
+
+        except (ValueError, KeyError):
             return False
 
     return len(mandatories) == 0
@@ -43,11 +55,11 @@ if __name__ == '__main__':
     argc = len(argv)
 
     if argc < 2:
-        example_doc_path = "./JSON_Files/mDL_example_document.json"
+        example_doc_path = "../../JSON_Files/mDL_example_document3.json"
     else:
         example_doc_path = argv[1]
     if argc < 3:
-        schema_doc_path = "./JSON_Files/schema_document.json"
+        schema_doc_path = "../../JSON_Files/schema_document3.json"
     else:
         schema_doc_path = argv[2]
 

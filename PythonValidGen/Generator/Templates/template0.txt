@@ -1,9 +1,48 @@
 import sys
 from PythonValidGen.Validator.Exceptions import ExceptionValidation
-from PythonValidGen.Validator.ValidationFunctions import check_format_string, check_format_number, check_format_boolean, check_format_date
+from PythonValidGen.Validator.ValidationFunctions import check_format_string, check_format_number, check_format_boolean, \
+    check_format_date, check_format_object
 from PythonValidGen.Verifier.Verifier import Verifier
 from PythonValidGen.DataRepresentation.Document import Document
 
 
-def validate_json_file(jsondata):
+def get_document(jsondata):
+    flag = False
+    key = None
 
+    if len(jsondata) == 1:
+        for key in jsondata:
+            flag = type(jsondata[key]) == list and type(jsondata[key][0]) == dict
+
+    if flag:
+        doc = jsondata[key]
+        is_list = True
+    else:
+        doc = jsondata
+        is_list = False
+
+    op_cont = None
+    if not is_list:
+        op_cont = doc
+
+    return doc, op_cont
+
+
+def get_field(field, op_cont):
+    if op_cont is None and len(field) == 2:
+        key = field['name']
+        value = {key: field['value']}
+        key = [key]
+    elif op_cont is None and len(field) == 1:
+        key = list(field.keys())[0]
+        value = {key: field[key]}
+        key = [key]
+    else:
+        key = field
+        value = {key: op_cont[key]}
+        key = [key]
+
+    return key, value
+
+
+def validate_json_file(jsondata):
