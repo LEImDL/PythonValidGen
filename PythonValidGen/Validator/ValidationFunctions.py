@@ -255,6 +255,10 @@ def check_format_number(number: Union[int, float], is_int: bool, length: int = N
 
     As well as the Exception thrown by `check_number`
     """
+    try:
+        number = int(number)
+    except ValueError:
+        raise ExceptionValidation("{0}, {1}, isn't an integer", 600, "Main Number", number)
 
     try:
         check_number(number, is_int=is_int, __type_num="Main Number")
@@ -327,7 +331,7 @@ def check_format_date(date: str, is_full_date: bool, past_date: bool = False, fu
     if is_full_date:
         date_formatter = '%Y-%m-%d %H:%M:%S'
     else:
-        date_formatter = '%y-%m-%d'  # y para ser só 2 algarismos
+        date_formatter = '%Y-%m-%d'  # y para ser só 2 algarismos
 
     try:
         date_formatted = datetime.strptime(date, date_formatter).date()
@@ -350,3 +354,12 @@ def check_format_date(date: str, is_full_date: bool, past_date: bool = False, fu
         raise ExceptionValidation("{0} was {1} years ago, and should be at least {2}", 904, date, years_passed, years_or_more)
     elif years_or_less is not None and 0 <= years_or_less < years_passed:
         raise ExceptionValidation("{0} was {1} years ago, and should no more than least {2}", 905, date, years_passed, years_or_less)
+
+
+def check_format_object(obj, functions_dict):
+    for obj1 in obj:
+        for item in obj1:
+            func = functions_dict[item]
+
+            if obj1[item] is not None and obj1[item] != []:
+                func(obj1[item])
