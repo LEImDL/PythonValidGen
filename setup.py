@@ -8,13 +8,29 @@ setup(
     packages=find_packages(),
     package_data={
         # If any package contains *.txt files, include them:
-        "Templates": ["*.txt"]
+        "Templates": ["*.txt"],
+        "JSON": ["*.json"]
     },
     include_package_data=True,
     data_files=[
         (os.path.join('Python_Module_Data', 'Template'),
          [os.path.join('PythonValidGen', 'Generator', 'Templates', 'template0.txt'),
-          os.path.join('PythonValidGen', 'Generator', 'Templates', 'template1.txt')]),
+          os.path.join('PythonValidGen', 'Generator', 'Templates', 'template1.txt'),
+          ]),
+        (os.path.join('Python_Module_Data', 'JSON_Files'),
+         [os.path.join('JSON_Files', 'mDL_example_document.json'),
+          os.path.join('JSON_Files', 'mDL_example_document1.json'),
+          os.path.join('JSON_Files', 'mDL_example_document2.json'),
+          os.path.join('JSON_Files', 'mDL_example_document3.json'),
+          os.path.join('JSON_Files', 'mDL_specification_prototype.json'),
+          os.path.join('JSON_Files', 'mDL_specification_prototype1.json'),
+          os.path.join('JSON_Files', 'schema_document.json'),
+          os.path.join('JSON_Files', 'schema_document1.json'),
+          os.path.join('JSON_Files', 'schema_document2.json'),
+          os.path.join('JSON_Files', 'schema_document3.json'),
+          os.path.join('JSON_Files', 'standard_format_prototype.json'),
+          os.path.join('JSON_Files', 'types_prototype.json'),
+        ])
     ],
     license='LICENSE',
     url="https://github.com/LEImDL/PythonValidGen",
