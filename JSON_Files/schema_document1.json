@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "field": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "type": ["string", "boolean", "number", "array"]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "document": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/field"
+      },
+      "default": []
+    }
+  },
+  "required": [
+    "document"
+  ],
+  "additionalProperties": false
+}

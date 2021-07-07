@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "field": {
+      "type": ["string", "boolean", "number", "array"],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "patternProperties": {
+    "^.*$": {
+      "$ref": "#/definitions/field"
+    }
+  },
+  "additionalProperties": false
+}

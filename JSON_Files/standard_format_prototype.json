@@ -4,7 +4,7 @@
       "field":{
          "type":"object",
          "properties":{
-            "name":{
+            "name": {
                "type":"string"
             },
             "string": {
@@ -19,7 +19,14 @@
             "date": {
               "$ref":"file:C:\\Users\\a84807\\Desktop\\Uni\\4ANO\\LEI\\JSON_Files\\types_prototype.json#/definitions/date"
             },
-            "mandatory":{
+            "my_object": {
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/field"
+               },
+               "default":[]
+            },
+            "mandatory": {
                "type":"boolean"
             }
          },
@@ -39,9 +46,7 @@
          "items":{
             "$ref":"#/definitions/field"
          },
-         "default":[
-
-         ]
+         "default":[]
       }
    },
    "required":[
