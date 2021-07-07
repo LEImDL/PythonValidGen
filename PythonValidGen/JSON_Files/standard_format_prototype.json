@@ -1,0 +1,56 @@
+{
+   "$schema":"http://json-schema.org/draft-07/schema#",
+   "definitions":{
+      "field":{
+         "type":"object",
+         "properties":{
+            "name": {
+               "type":"string"
+            },
+            "string": {
+              "$ref":"file:C:\\Users\\a84807\\Desktop\\Uni\\4ANO\\LEI\\JSON_Files\\types_prototype.json#/definitions/string"
+            },
+            "number": {
+              "$ref":"file:C:\\Users\\a84807\\Desktop\\Uni\\4ANO\\LEI\\JSON_Files\\types_prototype.json#/definitions/number"
+            },
+            "boolean": {
+              "$ref":"file:C:\\Users\\a84807\\Desktop\\Uni\\4ANO\\LEI\\JSON_Files\\types_prototype.json#/definitions/boolean"
+            },
+            "date": {
+              "$ref":"file:C:\\Users\\a84807\\Desktop\\Uni\\4ANO\\LEI\\JSON_Files\\types_prototype.json#/definitions/date"
+            },
+            "my_object": {
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/field"
+               },
+               "default":[]
+            },
+            "mandatory": {
+               "type":"boolean"
+            }
+         },
+         "additionalProperties":false,
+         "minProperties":3,
+         "maxProperties": 3,
+         "required":[
+            "name",
+            "mandatory"
+         ]
+      }
+   },
+   "type":"object",
+   "properties":{
+      "document":{
+         "type":"array",
+         "items":{
+            "$ref":"#/definitions/field"
+         },
+         "default":[]
+      }
+   },
+   "required":[
+      "document"
+   ],
+   "additionalProperties":false
+}
