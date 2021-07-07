@@ -79,7 +79,7 @@ if __name__ == '__main__':
         schema_path = argv[2]
 
     document = Document(file=specification_path, extension="JSON")
-    specification = document.content
+    _specification = document.content
 
-    schema = Document(file=schema_path, extension='JSON')
-    verifier = Verifier(schema.content)
+    _schema = Document(file=schema_path, extension='JSON')
+    verifier = Verifier(_schema.content)
