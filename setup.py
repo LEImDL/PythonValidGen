@@ -3,7 +3,7 @@ import os
 
 setup(
     name='PythonValidGen',
-    version='1.4.0',
+    version='1.5.0',
     author='Ana Almeida, André Figueiredo, Luís Ferreira',
     packages=find_packages(),
     package_data={
@@ -30,7 +30,7 @@ setup(
           os.path.join('JSON_Files', 'schema_document3.json'),
           os.path.join('JSON_Files', 'standard_format_prototype.json'),
           os.path.join('JSON_Files', 'types_prototype.json'),
-        ])
+          ])
     ],
     license='LICENSE',
     url="https://github.com/LEImDL/PythonValidGen",
