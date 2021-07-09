@@ -356,10 +356,22 @@ def check_format_date(date: str, is_full_date: bool, past_date: bool = False, fu
         raise ExceptionValidation("{0} was {1} years ago, and should no more than least {2}", 905, date, years_passed, years_or_less)
 
 
-def check_format_object(obj, functions_dict):
+def check_format_object(obj, functions_dict, mandatory, optional):
     for obj1 in obj:
+        mandatory_tmp = [] + mandatory
+        optional_tmp = [] + optional
         for item in obj1:
+            if item in mandatory_tmp:
+                mandatory_tmp.remove(item)
+            elif item in optional_tmp:
+                optional_tmp.remove(item)
+            else:
+                raise ExceptionValidation("{0} is not defined for this document", 1, item)
+
             func = functions_dict[item]
 
             if obj1[item] is not None and obj1[item] != []:
                 func(obj1[item])
+
+        if len(mandatory_tmp) != 0:
+            raise ExceptionValidation("{0} is missing from document", 0, mandatory_tmp)

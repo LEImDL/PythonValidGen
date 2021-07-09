@@ -7,9 +7,11 @@
             opt = False
             if field in mandatories:
                 mandatories.remove(field)
-            else:
+            elif field in optionals:
                 optionals.remove(field)
                 opt = True
+            else:
+                raise ExceptionValidation("{0} is not defined for this document", 1, field)
 
             try:
                 if len(key) == 1:
@@ -55,11 +57,11 @@ if __name__ == '__main__':
     argc = len(argv)
 
     if argc < 2:
-        example_doc_path = "../../JSON_Files/mDL_example_document3.json"
+        example_doc_path = "../JSON_Files/mDL_example_document3.json"
     else:
         example_doc_path = argv[1]
     if argc < 3:
-        schema_doc_path = "../../JSON_Files/schema_document3.json"
+        schema_doc_path = "../JSON_Files/schema_document3.json"
     else:
         schema_doc_path = argv[2]
 

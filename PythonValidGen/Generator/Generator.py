@@ -70,28 +70,33 @@ class Generator:
         value = field['my_object']
         self.__target_file.write('check_format_object(val{0}, {1}'.format('' if i == 0 else i - 1, '{'))
 
+        mandatories = []
+        optionals = []
+
         for field in value:
             name = field['name']
 
-            if 'my_object' in field:
-                self.__target_file.write("'" + name + "': (lambda val{0}: ".format(i))
-                self.__process_all_object(field, i + 1)
-
+            if field['mandatory']:
+                mandatories.append(name)
             else:
-                self.__target_file.write("'" + name + "': (lambda val{0}: ".format(i))
+                optionals.append(name)
 
-                if 'string' in field:
-                    self.__process_all(field, 'string', 'check_format_string', i)
-                elif 'number' in field:
-                    self.__process_all(field, 'number', 'check_format_number', i)
-                elif 'boolean' in field:
-                    self.__process_all(field, 'boolean', 'check_format_boolean', i)
-                elif 'date' in field:
-                    self.__process_all(field, 'date', 'check_format_date', i)
+            self.__target_file.write("'" + name + "': (lambda val{0}: ".format(i))
+
+            if 'my_object' in field:
+                self.__process_all_object(field, i + 1)
+            elif 'string' in field:
+                self.__process_all(field, 'string', 'check_format_string', i)
+            elif 'number' in field:
+                self.__process_all(field, 'number', 'check_format_number', i)
+            elif 'boolean' in field:
+                self.__process_all(field, 'boolean', 'check_format_boolean', i)
+            elif 'date' in field:
+                self.__process_all(field, 'date', 'check_format_date', i)
 
             self.__target_file.write(")), ")
 
-        self.__target_file.write("}")
+        self.__target_file.write(f"{'}'}, {mandatories}, {optionals}")
 
     def __create_file(self):
         if os.path.exists(self.__target_path):
@@ -108,20 +113,17 @@ class Generator:
         for field in self.__specification['document']:
             name = field['name']
 
+            self.__target_file.write("'" + name + "': lambda val: ")
             if 'my_object' in field:
-                self.__target_file.write("'" + name + "': lambda val: ")
                 self.__process_all_object(field, 0)
-            else:
-                self.__target_file.write("'" + name + "': lambda val: ")
-
-                if 'string' in field:
-                    self.__process_all(field, 'string', 'check_format_string')
-                elif 'number' in field:
-                    self.__process_all(field, 'number', 'check_format_number')
-                elif 'boolean' in field:
-                    self.__process_all(field, 'boolean', 'check_format_boolean')
-                elif 'date' in field:
-                    self.__process_all(field, 'date', 'check_format_date')
+            elif 'string' in field:
+                self.__process_all(field, 'string', 'check_format_string')
+            elif 'number' in field:
+                self.__process_all(field, 'number', 'check_format_number')
+            elif 'boolean' in field:
+                self.__process_all(field, 'boolean', 'check_format_boolean')
+            elif 'date' in field:
+                self.__process_all(field, 'date', 'check_format_date')
 
             self.__target_file.write("),\n                     ")
 
@@ -187,7 +189,7 @@ if __name__ == '__main__':
     argv = sys.argv
     argc = len(argv)
 
-    json_paths = os.path.join(dir_path, "..", "..", "JSON_Files")
+    json_paths = os.path.join(dir_path, "..", "JSON_Files")
 
     if argc < 2:
         specification_path = os.path.join(json_paths, 'mDL_specification_prototype1.json')
@@ -200,7 +202,7 @@ if __name__ == '__main__':
         schema_path = argv[2]
 
     if argc < 4:
-        target_path = './validator_example.py'
+        target_path = './validator_example1.py'
     else:
         target_path = argv[3]
 
