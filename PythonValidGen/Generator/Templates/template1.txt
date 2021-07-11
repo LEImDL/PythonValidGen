@@ -68,6 +68,8 @@ if __name__ == '__main__':
     try:
         if main(example_doc_path, schema_doc_path):
             exit(0)
+        else:
+            exit(-1)
     except Exception as e:
         print(e)
         exit(-1)
