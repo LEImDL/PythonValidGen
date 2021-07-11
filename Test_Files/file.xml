@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+   <document>
+      <mandatory>true</mandatory>
+      <name>Family Name</name>
+      <string>
+         <isBinary>false</isBinary>
+      </string>
+   </document>
+   <document>
+      <mandatory>true</mandatory>
+      <name>Given Name</name>
+      <string>
+         <isBinary>false</isBinary>
+      </string>
+   </document>
+</root>
