@@ -1,7 +1,8 @@
 import re
+import string as st
 from datetime import datetime
 from typing import Union, List, Set
-import string as st
+
 from PythonValidGen.Validator.Exceptions import ExceptionValidation
 
 
@@ -356,7 +357,26 @@ def check_format_date(date: str, is_full_date: bool, past_date: bool = False, fu
         raise ExceptionValidation("{0} was {1} years ago, and should no more than least {2}", 905, date, years_passed, years_or_less)
 
 
-def check_format_object(obj, functions_dict, mandatory, optional):
+def check_format_object(obj, functions_dict, mandatory: list, optional: list):
+    """
+    Recursive function, using functions_dict to validate obj, according to mandatory/optional status for each element.
+
+    Parameters
+    ----------
+    obj: dict
+        Object to be validated
+    functions_dict: dict
+        Dict with a function for each value contained in `obj`.
+    mandatory: list
+        List of mandatory fields
+    optional: list
+        List of optional fields
+
+    Raises
+    ----------
+    ExceptionValidation(0), if one or more mandatory fields are missing
+    ExceptionValidation(1), if field is not defined/expected for document
+    """
     for obj1 in obj:
         mandatory_tmp = [] + mandatory
         optional_tmp = [] + optional
