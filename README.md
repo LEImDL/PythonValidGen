@@ -13,10 +13,11 @@ A fantastic *Python* tool to parse and automate the generation of validation fun
 
 ## JSON files format
 
-### Document's format
-There are three types of accepted document's scheme.
+### Documents format
+There are three types of accepted documents scheme:
 
-An array of fields, each containing two values, "name" and "value".
+- An array of fields, each containing two values - "name" and "value".
+
 ````json
 {
   "document": [
@@ -31,7 +32,9 @@ An array of fields, each containing two values, "name" and "value".
   ]
 }
 ````
-An array of fields, each containing only one value, with key being the "name", and the "value".
+
+- An array of fields, each containing only one value, in which key is the "name" followed by the "value".
+
 ````json
 {
   "document": [
@@ -44,7 +47,9 @@ An array of fields, each containing only one value, with key being the "name", a
   ]
 }
 ````
-An object of fields, each containing only one value, with key being the "name", and the "value".
+
+- An object of fields, each containing only one value, in which key is the "name" followed by the "value".
+
 ````json
 {
   "Family Name": "Apelido",
@@ -53,10 +58,13 @@ An object of fields, each containing only one value, with key being the "name", 
 ````
 
 ### Specification's schema
-In this file it is modelled the format for the documents to validate, i.e., its structure, following the schema defined in the next section.
-Here it is specified every field expected, its name, if it is required, and the type of value expected and its restrictions.
+In this file, the format of the documents to be validated is modelled, i.e., its structure, following the schema defined in the next section.\
+Here it is specified every expected field - *name*, if it is *mandatory*, *type* of value expected and its *restrictions*.
 
-For example, for an obligatory family name using *utf-8* encoding, with a max length of 150, and ensuring that punctuation characters and digits are not used, all code needed is:
+#### Examples
+
+1. For an obligatory family name using *utf-8* encoding, with a *maximum* length of 150, while ensuring that punctuation characters and digits are not used:
+
 ````json
 {
   "name":"family_name",
@@ -70,7 +78,8 @@ For example, for an obligatory family name using *utf-8* encoding, with a max le
 }
 ````
 
-For example, for an optional birthdate (only date), that must match to someone aged 16 or over:
+2. For an optional birthdate (date only), that must match to someone aged 16 or over:
+
 ````json
 {
   "name":"birth_date",
@@ -82,7 +91,8 @@ For example, for an optional birthdate (only date), that must match to someone a
 }
 ````
 
-For example, for an optional timestamp (with an hour, minute and seconds):
+3. For an optional *timestamp* (with an hour, minutes and seconds):
+
 ````json
 {
   "name":"portrait_capture_date",
@@ -93,7 +103,8 @@ For example, for an optional timestamp (with an hour, minute and seconds):
 }
 ````
 
-For example, for an optional boolean value:
+4. For an optional boolean value:
+
 ````json
 {
   "name":"age_over_18",
@@ -103,7 +114,8 @@ For example, for an optional boolean value:
 }
 ````
 
-For example, for a mandatory binary string:
+5. For a mandatory binary string:
+
 ````json
 {
   "name":"portrait",
@@ -114,7 +126,8 @@ For example, for a mandatory binary string:
 }
 ````
 
-For example, for an age field (integer value), restricting to only positive values (the same can be done to restrict the upper bound):
+6. For an age field (*integer* value), restricted (in lower bound) to positive values, i.e., greater or equal than 0 (the same can be done to restrict the upper bound):
+
 ````json
 {
   "name":"age_in_years",
@@ -126,8 +139,8 @@ For example, for an age field (integer value), restricting to only positive valu
 }
 ````
 
+7. For a ten character string (containing only A, B, C, D, E, and F), a binary string, a string which length is between 10 and 20 characters (restricting the use of digits, ponctuation and whitespaces, that could be also letters) and a field that accepts an array of just enumerated values, respectively:
 
-For example, for a ten characters string (containing only A, B, C, D, E, and F), binary string, a string between 10 and 20 characters (restricting the use of digits, ponctuation and whitespaces - could be also letters), and a field that accepts an array of just enumerated values, respectively:
 ````json
 {
   "example": [
@@ -171,7 +184,8 @@ For example, for a ten characters string (containing only A, B, C, D, E, and F),
 }
 ````
 
-For example, for a positive integer number, a float between 0 and 10 and a two-digit integer, respectively:
+8. For a positive *integer* number, a *float* between 0 and 10 and a two-digit *integer*, respectively:
+
 ````json
 {
   "example": [
@@ -204,7 +218,8 @@ For example, for a positive integer number, a float between 0 and 10 and a two-d
 }
 ````
 
-For example, for a date that happened between 10 and 30 years ago, a past date (timestamp) and a future date, respectively:
+9. For a date that happened between 10 and 30 years ago, a past date (*timestamp*) and a future date, respectively:
+
 ````json
 {
   "example": [
@@ -237,11 +252,61 @@ For example, for a date that happened between 10 and 30 years ago, a past date (
 }
 ````
 
+10. For a field containing inner fields in which one is also an object with inner fields (it is also possible to defined mandatory fields inside an optional object, which condition is only verified if the object exists):
+
+````json
+{
+  "example": [
+    {
+      "name":"object_example",
+      "my_object":[
+        {
+          "name":"string_example",
+          "string":{
+            "is_binary":false
+          },
+          "mandatory":true
+        },
+        {
+          "name":"date_example",
+          "date":{
+            "is_full_date":false
+          },
+          "mandatory":false
+        },
+        {
+          "name":"inner_object_example",
+          "my_object": [
+            {
+              "name":"string_example",
+              "string":{
+                "is_binary":false
+              },
+              "mandatory":true
+            }, 
+            {
+              "name":"string_example",
+              "string":{
+                "is_binary":false
+              },
+              "mandatory":false
+            }
+          ],
+          "mandatory":false
+        }
+      ],
+      "mandatory":true
+    }
+  ]
+}
+````
+
+
 ### Standard formats for specification
-All specifications must should follow the schema in *standard_format_prototype.json*. In this file it is defined the format for every field in the desired specification, for example, it is defined that every field, must have a name, and a boolean value to determine if it is mandatory.
-And, also, the types of accepted fields, in addition to the four (explained in the next section) main types, there is an object, i.e., "recursive" type, because some document might have fields inside some other outer object/value.
+All specifications must should follow the schema in *standard_format_prototype.json*. In this file, it is defined the format for every field in the desired specification, for example, it is defined that every field must have a name, a boolean value to determine if it is mandatory and the type of accepted fields. In addition to the four main types (explained in the next section), there is an object, i.e., a "recursive" type, since a certain document may contain fields inside some other outer object/value.
 
 For example, in ***mDL***:
+
 ````json
 {
   "...": "...",
@@ -257,9 +322,9 @@ For example, in ***mDL***:
 }
 ````
 
-#### Types defined
-There are four types of values supported, *strings*, *numbers*, *dates* and  *booleans*. So, in order to specify many documents without the need to redefine the same types, *types_prototype.json* was created.\
-This file also contains all the accepted restrictions for every type.
+#### Defined Types
+There are four types of supported values - *strings*, *numbers*, *dates* and  *booleans*. In order to specify many documents without the need to redefine the same types, the file *types_prototype.json* was created.\
+This file also contains all the accepted restrictions for each type.
 
 
 ## Execution example
@@ -314,7 +379,7 @@ specification = document.content
 print(specification)
 ```
 
-* For *CBOR* files, the required code is similar.
+* For *CBOR* files, the required code is also identical.
 
 ```python
 from PythonValidGen.DataRepresentation.Document import Document
@@ -325,7 +390,6 @@ document = Document(file=specification_path, extension="CBOR")
 specification = document.content
 print(specification)
 ```
-
 
 It is possible to load data from more sources than files, f.e., a *dict* object. In this example, the object is later converted into a *CBOR* object, to finally load it again.
 
@@ -350,7 +414,7 @@ print(document1.content)
 Last, but not least, the object is converted into a *COSE* object.\
 All three operations (*encryption*, *mac* and *sign*) are supported, as well all header values defined in `PyCose` library:
 
-- *Encrypting* using a symmetric key.
+- *Encrypting* using a symmetric key:
 
 ```python
 from PythonValidGen.DataRepresentation.Document import Document
@@ -368,7 +432,7 @@ assert dec.content == document.content
 print(dec.content)
 ```
 
-- Calculate a *MAC* for the document to ensure its integrity, using the same key for both operations.
+- Calculate a *MAC* for the document to ensure its integrity, using the same key for both operations:
 
 ```python
 from PythonValidGen.DataRepresentation.Document import Document
@@ -386,7 +450,7 @@ assert dec.content == document.content
 print(dec.content)
 ```
 
-- Calculate a *signature* for the document to ensure its integrity and non-repudiation, using assymetric cryptography. The two keys are encoded in *pem format*, the public key is used to *verify* and the private key is used to *sign*.
+- Calculate a *signature* for the document to ensure its integrity and non-repudiation, using assymetric cryptography. The two keys are encoded in *pem format*, the public key is used to *verify* and the private key is used to *sign*:
 
 ```python
 from PythonValidGen.DataRepresentation.Document import Document
