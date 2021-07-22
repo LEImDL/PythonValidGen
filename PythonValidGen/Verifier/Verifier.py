@@ -36,7 +36,7 @@ class Verifier:
 
         self.__schema = schema
 
-    def verify(self, specification: dict):
+    def verify(self, specification: dict, ref_path: str = None):
         """
         Verifies if `specification` object follows loaded schema.
 
@@ -44,6 +44,8 @@ class Verifier:
         ----------
         specification: dict
             Dictionary representing the specification to be verified
+        ref_path
+            Path to specification path, must be used if `$ref` property is used in specification
 
         Returns
         ----------
@@ -52,7 +54,12 @@ class Verifier:
         """
 
         try:
-            jsonschema.validate(instance=specification, schema=self.__schema)
+            if ref_path is None or ref_path == "":
+                resolver = None
+            else:
+                resolver = jsonschema.RefResolver('file:///{0}/'.format(ref_path), self.__schema)
+
+            jsonschema.validate(instance=specification, schema=self.__schema, resolver=resolver)
         except Exception as e:
             raise e
 
@@ -66,7 +73,7 @@ if __name__ == '__main__':
     argv = sys.argv
     argc = len(argv)
 
-    json_paths = os.path.join(os.path.dirname(__file__), "..", "..", "JSON_Files")
+    json_paths = os.path.join(os.path.dirname(__file__), "..", "JSON_Files")
 
     if argc < 2:
         specification_path = os.path.join(json_paths, 'mDL_specification_prototype.json')
@@ -83,3 +90,4 @@ if __name__ == '__main__':
 
     _schema = Document(file=schema_path, extension='JSON')
     verifier = Verifier(_schema.content)
+    verifier.verify(_specification, json_paths)

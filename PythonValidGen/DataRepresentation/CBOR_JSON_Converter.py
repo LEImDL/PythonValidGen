@@ -11,7 +11,7 @@ from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurvePublicKey,
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey, RSAPrivateKey, RSAPublicNumbers, \
     RSAPrivateNumbers
 from cryptography.hazmat.primitives.serialization import *
-
+import cose.keys.cosekey
 
 def cbor2json(cbor_obj):
     """

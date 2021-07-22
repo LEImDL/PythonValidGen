@@ -38,11 +38,12 @@ def main(example_doc, schema_doc):
     document = Document(file=example_doc)
     document_data = document.content
 
-    schema_document = Document(file=schema_doc)
-    schema_data = schema_document.content
+    if schema_doc is not None:
+        schema_document = Document(file=schema_doc)
+        schema_data = schema_document.content
 
-    v = Verifier(schema_data)
-    v.verify(document_data)
+        v = Verifier(schema_data)
+        v.verify(document_data)
 
     if validate_json_file(document_data):
         print("Documento Válido")
@@ -60,10 +61,11 @@ if __name__ == '__main__':
         example_doc_path = "../JSON_Files/mDL_example_document3.json"
     else:
         example_doc_path = argv[1]
-    if argc < 3:
-        schema_doc_path = "../JSON_Files/schema_document3.json"
-    else:
+
+    if argc == 3:
         schema_doc_path = argv[2]
+    else:
+        schema_doc_path = None
 
     try:
         if main(example_doc_path, schema_doc_path):
